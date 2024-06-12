@@ -3,9 +3,9 @@
 **This repository is the official implementation of GUI Odyssey.**
 
 > [GUI Odyssey: A Comprehensive Dataset for Cross-App GUI Navigation on Mobile Devices](ARXIV_LINK)  
-> Quanfeng Lu, Wenqi Shao✉️🗡️, Zitao Liu, Fanqing Meng, Boxuan Li, Botong Chen, Siyuan Huang, Kaipeng Zhang, Yu Qiao, Ping Luo✉️  
+> Quanfeng Lu, Wenqi Shao✉️⭐️, Zitao Liu, Fanqing Meng, Boxuan Li, Botong Chen, Siyuan Huang, Kaipeng Zhang, Yu Qiao, Ping Luo✉️  
 > ✉️  Wenqi Shao (shaowenqi@pjlab.org.cn) and Ping Luo (pluo@cs.hku.hk) are correponding authors.   
-> 🗡️ Wenqi Shao is project leader.   
+> ⭐️ Wenqi Shao is project leader.   
 
 
 ## 💡 News
@@ -25,7 +25,7 @@ GUI Odyssey is a comprehensive dataset for training and evaluating **cross-app**
 
 <!-- [x] Create the git repository. -->
 
-## 💎 Data collection pipeline 
+## 🛠️ Data collection pipeline 
 GUI Odyssey comprises six categories of navigation tasks. For each category, we construct instruction templates with items and apps selected from a predefined pool, resulting in a vast array of unique instructions for annotating GUI episodes. Human demonstrations on an Android emulator capture the metadata of each episode in a comprehensive format. After rigorous quality checks, GUI Odyssey includes 7,735 validated cross-app GUI navigation episodes.
 ![pipeline](assets/pipeline.png)
 
@@ -36,7 +36,7 @@ GUI Odyssey comprises six categories of navigation tasks. For each category, we 
 
 <center>
 
-Name                        | # Episodes        | # Unique Prompts  | # Avg. Steps     | Data location
+Splits                      | # Episodes        | # Unique Prompts  | # Avg. Steps     | Data location
 :---------:                 | :---------:       | :-----------:     | :--------------: | :-----------:
 **Total**                   | **7,735**         | **7,735**         | **15.4**         | release soon
 Train-Random \& Test-Random | 5,802 / 1,933     | 5,802 / 1,933     | 15.4 / 15.2      | release soon

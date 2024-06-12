@@ -24,8 +24,8 @@ Each field of annotation is as follows:
     * `step`(int): each step within the episode is identified by a zero-indexed step number, indicating its position in sequence within the episode. For example, if the *step* is 1, it corresponds to the second step of the episode. 
     * `screenshot`(str): the current screenshot of this step
     * `action`(str): the corresponding action of this step, one of **CLICK**, **SCROLL**, **LONG_PRESS**, **TYPE**, **COMPLETE**, **IMPOSSIBLE**, **HOME**, **BACK**
-    * `info`(Union[str, list[tuple]]): provides specific details required to perform the action specified in the *action* field. Note that all the coordinates are normalized to the range of [0, 1000].
-        * if action is *CLICK*, info contains the coordinates(x, y) to click on or indicates special keys like HOME or BACK.
+    * `info`(Union[str, list[list]]): provides specific details required to perform the action specified in the *action* field. Note that all the coordinates are normalized to the range of [0, 1000].
+        * if action is *CLICK*, info contains the coordinates(x, y) to click on or one of the special keys  *KEY_HOME*, *KEY_BACK*, *KEY_RECENT*.
         * if action is *LONG_PRESS*, info contains the coordinates(x, y) for the long press.
         * if action is *SCROLL*, info contains the starting(x1, y1) and ending(x2, y2) coordinates of the scroll action.
         * if action is any other value, info is empty ("").
