@@ -14,7 +14,7 @@
 <!-- And check our [project page]()! -->
 
 ## 🔆 Introduction
-GUI Odyssey is a comprehensive dataset for training and evaluating cross-app navigation agents. GUI Odyssey consists of 7,735 episodes from 6 mobile devices, spanning 6 types of cross-app tasks, 201 apps, and 1.4K app combos.
+GUI Odyssey is a comprehensive dataset for training and evaluating **cross-app** navigation agents. GUI Odyssey consists of 7,735 episodes from 6 mobile devices, spanning 6 types of cross-app tasks, 201 apps, and 1.4K app combos.
 ![overview](assets/dataset_overview.jpg)
 
 
