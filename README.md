@@ -27,7 +27,7 @@ GUI Odyssey is a comprehensive dataset for training and evaluating **cross-app**
 
 ## 📝 Data collection pipeline 
 GUI Odyssey comprises six categories of navigation tasks. For each category, we construct instruction templates with items and apps selected from a predefined pool, resulting in a vast array of unique instructions for annotating GUI episodes. Human demonstrations on an Android emulator capture the metadata of each episode in a comprehensive format. After rigorous quality checks, GUI Odyssey includes 7,735 validated cross-app GUI navigation episodes.
-![pipeline](assets/pipeline.jpg)
+![pipeline](assets/pipeline.png)
 
 ## ⚙️ Detailed Data Information
 Please refer to [this](introduction.md).
