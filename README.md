@@ -2,7 +2,7 @@
 
 **This repository is the official implementation of GUI Odyssey.**
 
-> [GUI Odyssey: A Comprehensive Dataset for Cross-App GUI Navigation on Mobile Devices](ARXIV_LINK)  
+> [GUI Odyssey: A Comprehensive Dataset for Cross-App GUI Navigation on Mobile Devices](https://arxiv.org/abs/2406.08451)  
 > Quanfeng Lu, Wenqi Shao✉️⭐️, Zitao Liu, Fanqing Meng, Boxuan Li, Botong Chen, Siyuan Huang, Kaipeng Zhang, Yu Qiao, Ping Luo✉️  
 > ✉️  Wenqi Shao (shaowenqi@pjlab.org.cn) and Ping Luo (pluo@cs.hku.hk) are correponding authors.   
 > ⭐️ Wenqi Shao is project leader.   
@@ -10,7 +10,7 @@
 
 ## 💡 News
 
-- `2024/06/16`: The paper of [GUI Odyssey](ARXIV_LINK) is released! 
+- `2024/06/16`: The paper of [GUI Odyssey](https://arxiv.org/pdf/2406.08451) is released! 
 <!-- And check our [project page]()! -->
 
 ## 🔆 Introduction
