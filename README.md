@@ -67,7 +67,6 @@ Please refer to [this](Quickstart.md) to quick start.
 - [ ]  Code
   - [ ] data preprocessing code
   - [ ] inference code
-  - [ ] LLM
 - [ ]  Models
 
 ## 🖊️ Citation 
