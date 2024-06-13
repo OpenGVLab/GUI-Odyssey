@@ -10,7 +10,7 @@
 
 ## 💡 News
 
-- `2024/06/16`: The paper of [GUI Odyssey](https://arxiv.org/pdf/2406.08451) is released! 
+- `2024/06/13`: The paper of [GUI Odyssey](https://arxiv.org/pdf/2406.08451) is released! 
 <!-- And check our [project page]()! -->
 
 ## 🔆 Introduction
