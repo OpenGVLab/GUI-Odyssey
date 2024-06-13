@@ -83,6 +83,6 @@ If you feel GUI Odyssey useful in your project or research, please kindly use th
 }
 ```
 
-## 📢 Disclaimer
+<!-- ## 📢 Disclaimer
 
-We develop this repository for RESEARCH purposes, so it can only be used for personal/research/non-commercial purposes.
+We develop this repository for RESEARCH purposes, so it can only be used for personal/research/non-commercial purposes. -->
