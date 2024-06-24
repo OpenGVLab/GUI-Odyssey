@@ -66,7 +66,8 @@ GUI-Odyssey
 │   ├── annotations
 │   │   └── *.json
 │   ├── screenshots
-│   │   └── data_*.json
+│   │   └── data_*
+│   │        └── *.png
 │   ├── splits
 │   │   ├── app_split.json
 │   │   ├── device_split.json
