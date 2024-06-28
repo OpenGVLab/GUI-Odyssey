@@ -57,7 +57,7 @@ Clone the entire dataset from Huggingface:
 ```shell
 git clone https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey
 ```
-And then move the cloned dataset into `./data` directory. After that, the `./data` structure should look like this:
+And then move the cloned dataset into `./data` directory. After that, the structure of `./data` should look like this:
 
 
 ```
@@ -73,6 +73,7 @@ GUI-Odyssey
 │   │   ├── device_split.json
 │   │   ├── random_split.json
 │   │   └── task_split.json
+│   ├── format_converter.py
 │   └── preprocessing.py
 └── ...
 ```
@@ -84,7 +85,7 @@ cd data
 python preprocessing.py
 ```
 
-Finally, the `./data` structure should look like this:
+Finally, the structure of `./data` should look like this:
 
 ```
 GUI-Odyssey
@@ -98,6 +99,7 @@ GUI-Odyssey
 │   │   ├── device_split.json
 │   │   ├── random_split.json
 │   │   └── task_split.json
+│   ├── format_converter.py
 │   └── preprocessing.py
 └── ...
 ```
