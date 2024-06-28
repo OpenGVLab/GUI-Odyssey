@@ -19,9 +19,9 @@
   - [x] Screenshots of GUI Odyssey
   - [x] annotations of GUI Odyssey
   - [x] split files of GUI Odyssey
-- [ ]  Code
-  - [ ] data preprocessing code
-  - [ ] inference code
+- [x]  Code
+  - [x] data preprocessing code
+  - [x] inference code
 - [ ]  Models
 
 
