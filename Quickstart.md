@@ -45,7 +45,7 @@ Next, initialize `OdysseyAgent` using the weights from `Qwen-VL-Chat`:
 python merge_weight.py
 ```
 
-## Fine-tuning
+### Fine-tuning
 
 Specify the path to the `OdysseyAgent` and the chat-format training data generated in the  `Data preprocessing`  stage (one of the four splits) in the `script/train.sh` file. Then, run the following command:
 
@@ -54,7 +54,7 @@ cd src
 bash script/train.sh
 ```
 
-## Evalutaion
+### Evalutaion
 
 Specify the path to the checkpoint and dataset split (one of `app_split`, `device_split`, `random_split`, `task_split`) in the `script/eval.sh` file. Then, run the following command:
 
