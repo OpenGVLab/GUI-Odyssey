@@ -29,7 +29,7 @@ GUI Odyssey comprises six categories of navigation tasks. For each category, we 
 
 <center>
 
-Splits                      | # Episodes        | # Unique Prompts  | # Avg. Steps     | Data location | OdysseyAgent
+Splits                      | # Episodes        | # Unique Prompts  | # Avg. Steps     | Data location | Model
 :---------:                 | :---------:       | :-----------:     | :--------------: | :-----------: | :-----------:
 **Total**                   | **7,735**         | **7,735**         | **15.4**         | [GUI-Odyssey](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey)                | [OdysseyAgent](https://huggingface.co/collections/hflqf88888/gui-odyssey-6683bac37ad6fe37b1215c18)
 Train-Random \& Test-Random | 5,802 / 1,933     | 5,802 / 1,933     | 15.4 / 15.2      | [random_split.json](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey/tree/main/splits)   | [OdysseyAgent-Random](https://huggingface.co/hflqf88888/OdysseyAgent-random)
