@@ -31,7 +31,7 @@ GUI Odyssey comprises six categories of navigation tasks. For each category, we 
 
 Splits                      | # Episodes        | # Unique Prompts  | # Avg. Steps     | Data location | OdysseyAgent
 :---------:                 | :---------:       | :-----------:     | :--------------: | :-----------: | :-----------:
-**Total**                   | **7,735**         | **7,735**         | **15.4**         | [GUI-Odyssey](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey)                | [OdysseyAgent]([https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey](https://huggingface.co/collections/hflqf88888/gui-odyssey-6683bac37ad6fe37b1215c18))
+**Total**                   | **7,735**         | **7,735**         | **15.4**         | [GUI-Odyssey](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey)                | [OdysseyAgent]([https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey](https://huggingface.co/collections/hflqf88888/gui-odyssey-6683bac37ad6fe37b1215c18)
 Train-Random \& Test-Random | 5,802 / 1,933     | 5,802 / 1,933     | 15.4 / 15.2      | [random_split.json](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey/tree/main/splits)   | [OdysseyAgent-Random](https://huggingface.co/hflqf88888/OdysseyAgent-random)
 Train-Task \& Test-Task     | 6,719 / 1,016     | 6,719 / 1,016     | 15.0 / 17.6      | [task_split.json](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey/tree/main/splits)     | [OdysseyAgent-Task](https://huggingface.co/hflqf88888/OdysseyAgent-task)
 Train-Device \& Test-Device | 6,473 / 1,262     | 6,473 / 1,262     | 15.4 / 15.0      | [device_split.json](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey/tree/main/splits)   | [OdysseyAgent-Device](https://huggingface.co/hflqf88888/OdysseyAgent-device)
