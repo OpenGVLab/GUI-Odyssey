@@ -45,6 +45,14 @@ Next, initialize `OdysseyAgent` using the weights from `Qwen-VL-Chat`:
 python merge_weight.py
 ```
 
+Further, we also provide four variants of OdysseyAgent: 
+- [OdysseyAgent-Random](https://huggingface.co/hflqf88888/OdysseyAgent-random)
+- [OdysseyAgent-Task](https://huggingface.co/hflqf88888/OdysseyAgent-task)
+- [OdysseyAgent-Device](https://huggingface.co/hflqf88888/OdysseyAgent-device)
+- [OdysseyAgent-App](https://huggingface.co/hflqf88888/OdysseyAgent-app)
+
+Each fine-tuned on Train-Random, Train-Task, Train-Device, and Train-App respectively.
+
 ### Fine-tuning
 
 Specify the path to the `OdysseyAgent` and the chat-format training data generated in the  `Data preprocessing`  stage (one of the four splits) in the `script/train.sh` file. Then, run the following command:
