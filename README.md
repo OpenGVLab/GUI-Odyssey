@@ -14,17 +14,6 @@
 - `2024/06/13`: The paper of [GUI Odyssey](https://arxiv.org/pdf/2406.08451) is released! 
 <!-- And check our [project page]()! -->
 
-## 📖 Release Process
-
-- [x] Dataset
-  - [x] Screenshots of GUI Odyssey
-  - [x] annotations of GUI Odyssey
-  - [x] split files of GUI Odyssey
-- [x]  Code
-  - [x] data preprocessing code
-  - [x] inference code
-- [ ]  Models
-
 
 ## 🔆 Introduction
 GUI Odyssey is a comprehensive dataset for training and evaluating **cross-app** navigation agents. GUI Odyssey consists of 7,735 episodes from 6 mobile devices, spanning 6 types of cross-app tasks, 201 apps, and 1.4K app combos.
@@ -113,6 +102,17 @@ Please refer to [this](introduction.md).
 ## 🚀 Quick Start
 
 Please refer to [this](Quickstart.md) to quick start.
+
+## 📖 Release Process
+
+- [x] Dataset
+  - [x] Screenshots of GUI Odyssey
+  - [x] annotations of GUI Odyssey
+  - [x] split files of GUI Odyssey
+- [x]  Code
+  - [x] data preprocessing code
+  - [x] inference code
+- [x]  Models
 
 
 ## 🖊️ Citation 
