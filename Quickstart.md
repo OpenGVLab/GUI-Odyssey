@@ -51,7 +51,7 @@ Further, we also provide four variants of OdysseyAgent:
 - [OdysseyAgent-Device](https://huggingface.co/hflqf88888/OdysseyAgent-device)
 - [OdysseyAgent-App](https://huggingface.co/hflqf88888/OdysseyAgent-app)
 
-Each fine-tuned on Train-Random, Train-Task, Train-Device, and Train-App respectively.
+Each fine-tuned on `Train-Random`, `Train-Task`, `Train-Device`, and `Train-App` respectively.
 
 ### Fine-tuning
 
