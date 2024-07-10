@@ -161,11 +161,11 @@ def make_his_idx(train_base=train_anno_base, test_base=test_anno_base):
                 his_dict[img] = history
             
     for subsplit in os.listdir(test_base):
-        subp = os.path.join(train_base, subsplit)
+        subp = os.path.join(test_base, subsplit)
         data_all = json.load(open(subp))
         for data in data_all: 
             img = data['image']
-            history = eval(data['history'])
+            history = eval(data['history_screenshot'])
             if img in his_dict:
                 assert his_dict[img] == history
             else:
