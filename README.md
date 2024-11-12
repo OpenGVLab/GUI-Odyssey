@@ -118,13 +118,11 @@ Please refer to [this](Quickstart.md) to quick start.
 ## 🖊️ Citation 
 If you feel GUI Odyssey useful in your project or research, please kindly use the following BibTeX entry to cite our paper. Thanks!
 ```bib
-@misc{lu2024gui,
-      title={GUI Odyssey: A Comprehensive Dataset for Cross-App GUI Navigation on Mobile Devices}, 
-      author={Quanfeng Lu and Wenqi Shao and Zitao Liu and Fanqing Meng and Boxuan Li and Botong Chen and Siyuan Huang and Kaipeng Zhang and Yu Qiao and Ping Luo},
-      year={2024},
-      eprint={2406.08451},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV}
+@article{lu2024gui,
+  title={GUI Odyssey: A Comprehensive Dataset for Cross-App GUI Navigation on Mobile Devices},
+  author={Lu, Quanfeng and Shao, Wenqi and Liu, Zitao and Meng, Fanqing and Li, Boxuan and Chen, Botong and Huang, Siyuan and Zhang, Kaipeng and Qiao, Yu and Luo, Ping},
+  journal={arXiv preprint arXiv:2406.08451},
+  year={2024}
 }
 ```
 
