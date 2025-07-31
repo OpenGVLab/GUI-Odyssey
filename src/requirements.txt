@@ -14,3 +14,4 @@ tensorboard
 matplotlib
 peft
 deepspeed
+numpy==1.2.4

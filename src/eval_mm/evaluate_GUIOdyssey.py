@@ -25,20 +25,36 @@ from qwen_generation_utils import make_context, decode_tokens
 IMAGE_HISTORY = True
 
 ds_collections = {
-    'app_split': {
-        'test': '../data/test_anno/app_split.json',
+    'high_app_split': {
+        'test': '../data/test_anno/high_app_split.json',
         'metric': 'macro'
     },
-    'device_split': {
-        'test': '../data/test_anno/device_split.json',
+    'high_device_split': {
+        'test': '../data/test_anno/high_device_split.json',
         'metric': 'macro'
     },
-    'random_split': {
-        'test': '../data/test_anno/random_split.json',
+    'high_random_split': {
+        'test': '../data/test_anno/high_random_split.json',
         'metric': 'micro'
     },
-    'task_split': {
-        'test': '../data/test_anno/task_split.json',
+    'high_task_split': {
+        'test': '../data/test_anno/high_task_split.json',
+        'metric': 'macro'
+    },
+    'low_app_split': {
+        'test': '../data/test_anno/low_app_split.json',
+        'metric': 'macro'
+    },
+    'low_device_split': {
+        'test': '../data/test_anno/low_device_split.json',
+        'metric': 'macro'
+    },
+    'low_random_split': {
+        'test': '../data/test_anno/low_random_split.json',
+        'metric': 'micro'
+    },
+    'low_task_split': {
+        'test': '../data/test_anno/low_task_split.json',
         'metric': 'macro'
     }
 }
@@ -105,6 +121,7 @@ def action_matching_evaluation(pred_output, metric='macro'):
     for idx, sample in enumerate(pred_output):
         question, pred, gt, more_info = sample['question'], sample['pred'], sample['gt'], sample['more_info']
         sample_eval_dict = {'question': question, 'pred': str(pred), 'gt': str(gt), 'more_info': more_info}
+        sam2_bbox = more_info['sam2_bbox']
         
         gt_simple_info = simple_decode(gt)
         gt_action = gt_simple_info['action']
@@ -122,7 +139,7 @@ def action_matching_evaluation(pred_output, metric='macro'):
             continue
         
         try:
-            check_match = action_matching(pred_action, pred_info, gt_action, gt_info)
+            check_match = action_matching(pred_action, pred_info, gt_action, gt_info, sam2_bbox)
         except Exception as exc:
             print('eval err:', gt, pred, exc)
             check_match = {'is_correct': 'no', 'info': 'invalid'}
@@ -165,8 +182,9 @@ def check_SR(eval_dict):
         v = list(set(v))
         if len(v) == 1 and v[0] == 'yes':
             cnt += 1
-            
-    SR = round(cnt / tot * 100, 2)
+    
+    if tot == 0: SR = 0
+    else: SR = round(cnt / tot * 100, 2)
     print(f'total episode: {tot}, successful episode: {cnt}, SR: {SR}')
     return cnt, tot, SR
 
@@ -189,19 +207,17 @@ def collate_fn(batches, tokenizer):
 class LazySupervisedDataset(torch.utils.data.Dataset):
     def __init__(self, datapath, tokenizer: transformers.PreTrainedTokenizer, his_len, max_window_size, chat_format):
         super(LazySupervisedDataset, self).__init__()
-        self.aitw = json.load(open(datapath))
-        if len(self.aitw) > 50000:
-            self.aitw = random.sample(self.aitw, len(self.aitw) // 10)
+        self.all_data = json.load(open(datapath))
         self.tokenizer = tokenizer
         self.max_window_size = max_window_size
         self.chat_format = chat_format
         self.his_len = his_len
 
     def __len__(self):
-        return len(self.aitw)
+        return len(self.all_data)
 
     def __getitem__(self, idx):
-        data = self.aitw[idx]
+        data = self.all_data[idx]
         img = data['image']
         question = f"Picture 1: <img>{img}</img>\nI'm looking for guidance on how to {data['question']}"
         answer = data['answer']
@@ -215,6 +231,9 @@ class LazySupervisedDataset(torch.utils.data.Dataset):
                     his_str += f"{idx+1}. {hi}\n"
                 
                 question = f"{question}{his_img}{his_str}"
+            else:
+                question += f'\nPrevious screenshots: None'
+                question += f'\nPrevious Actions: None'
         else:
             if len(history_action) > 0:
                 his_str = '\nPrevious Actions: '
@@ -223,8 +242,9 @@ class LazySupervisedDataset(torch.utils.data.Dataset):
                 
                 question = f"{question}{his_str}"
         
+        question += '\nProvide the command-style action directly.'
         raw_text, _ = make_context(self.tokenizer, question, system="You are a helpful assistant.", max_window_size=self.max_window_size, chat_format=self.chat_format)
-        more_info = {'category': data['category'], 'step_length': data['step_length']}
+        more_info = {'category': data['category'], 'step_length': data['step_length'], 'sam2_bbox': data['sam2_bbox']}
         return {
             'raw_text': raw_text,
             'question': question,
@@ -336,7 +356,7 @@ if __name__ == '__main__':
             print(_)
             continue
 
-    print(f'rank {torch.distributed.get_rank()} finished inference.')
+    print(f'Rank {torch.distributed.get_rank()}: inference finished.')
     torch.distributed.barrier()
 
     world_size = torch.distributed.get_world_size()
@@ -347,17 +367,17 @@ if __name__ == '__main__':
     merged_outputs = [_ for _ in itertools.chain.from_iterable(merged_outputs)]
 
     if torch.distributed.get_rank() == 0:
-        print(f"Saving predict result ...")
+        print(f"Saving predicted result ...")
         # time_prefix = time.strftime('%y%m%d%H%M%S', time.localtime())
         os.makedirs(args.output_path, exist_ok=True)
         model_name = str(args.checkpoint).replace('/', '_')
         savefile = os.path.join(args.output_path, f'{model_name}_{args.dataset}.json')
-        json.dump(merged_outputs, open(savefile, 'w'), indent=4, ensure_ascii=False)
+        json.dump(merged_outputs, open(savefile, 'w', encoding='utf-8', errors='ignore'), indent=4, ensure_ascii=False)
         
         print(f"Evaluating {args.dataset} ...")
         metrics = action_matching_evaluation(merged_outputs, metric=ds_collections[args.dataset]['metric'])
         
         output_data = {'dataset': args.dataset, 'model': model_name, 'metrics': metrics}
-        json.dump(output_data, open(savefile, 'w'), indent=4, ensure_ascii=False)
+        json.dump(output_data, open(savefile, 'w', encoding='utf-8', errors='ignore'), indent=4, ensure_ascii=False)
         
     torch.distributed.barrier()

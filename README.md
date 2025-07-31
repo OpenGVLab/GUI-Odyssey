@@ -1,81 +1,42 @@
-# GUI Odyssey
+# GUIOdyssey
 
-**This repository is the official implementation of GUI Odyssey.**
+**This repository is the official implementation of GUIOdyssey.**
 
-> [GUI Odyssey: A Comprehensive Dataset for Cross-App GUI Navigation on Mobile Devices](https://arxiv.org/abs/2406.08451)  
-> Quanfeng Lu, Wenqi Shao✉️⭐️, Zitao Liu, Fanqing Meng, Boxuan Li, Botong Chen, Siyuan Huang, Kaipeng Zhang, Yu Qiao, Ping Luo✉️  
-> ✉️  Wenqi Shao (shaowenqi@pjlab.org.cn) and Ping Luo (pluo@cs.hku.hk) are correponding authors.   
-> ⭐️ Wenqi Shao is project leader.   
+> [GUIOdyssey: A Comprehensive Dataset for Cross-App GUI Navigation on Mobile Devices](assets/GUIOdyssey.pdf)  
+> Quanfeng Lu, Wenqi Shao✉️, Zitao Liu, Lingxiao Du, Fanqing Meng, Boxuan Li, Botong Chen, Siyuan Huang, Kaipeng Zhang, Ping Luo✉️
 
 
 ## 💡 News
+- `2025/07/31`: 🔥🔥🔥 Latest version of [GUIOdyssey dataset](https://huggingface.co/datasets/hflqf88888/GUIOdyssey) released! Please check out [hflqf88888/GUIOdyssey](https://huggingface.co/datasets/hflqf88888/GUIOdyssey). We recommend using this new version of the dataset for training and evaluation!
+- `2025/06/26`: 🎉🎉🎉 [GUIOdyssey paper](assets/GUIOdyssey.pdf) is accepted to ICCV 2025!
+- `2024/06/24`: The first version of [GUIOdyssey dataset](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey) is released.
+- `2024/06/13`: The [GUIOdyssey arXiv preprint (v1)](https://arxiv.org/pdf/2406.08451) has been released.
 
-- `2024/06/24`: The data of [GUI Odyssey](https://arxiv.org/pdf/2406.08451) is released! Please check out [OpenGVLab/GUI-Odyssey](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey)!
-- `2024/06/13`: The paper of [GUI Odyssey](https://arxiv.org/pdf/2406.08451) is released! 
-<!-- And check our [project page]()! -->
 
 
 ## 🔆 Introduction
-GUI Odyssey is a comprehensive dataset for training and evaluating **cross-app** navigation agents. GUI Odyssey consists of 7,735 episodes from 6 mobile devices, spanning 6 types of cross-app tasks, 201 apps, and 1.4K app combos.
+GUIOdyssey is a comprehensive dataset for training and evaluating **cross-app** navigation agents. GUIOdyssey consists of 8,334 episodes from 6 mobile devices, spanning 6 types of cross-app tasks, 212 apps, and 1.4K app combos.   
+
+For more details, please refer to our [latest paper](assets/GUIOdyssey.pdf).
 ![overview](assets/dataset_overview.jpg)
 
 
 ## 🛠️ Data collection pipeline 
-GUI Odyssey comprises six categories of navigation tasks. For each category, we construct instruction templates with items and apps selected from a predefined pool, resulting in a vast array of unique instructions for annotating GUI episodes. Human demonstrations on an Android emulator capture the metadata of each episode in a comprehensive format. After rigorous quality checks, GUI Odyssey includes 7,735 validated cross-app GUI navigation episodes.
-![pipeline](assets/pipeline.png)
+GUIOdyssey comprises six categories of navigation tasks. For each category, we construct instruction templates with items and apps selected from a predefined pool, resulting in a vast array of unique instructions for annotating GUI episodes. Human demonstrations on an Android emulator capture the metadata of each episode in a comprehensive format. After rigorous quality checks, GUIOdyssey includes 8,834 validated cross-app GUI navigation episodes.
+![pipeline](assets/pipeline.jpg)
 
-
-## 📝 Statistics
-
-<center>
-
-Splits                      | # Episodes        | # Unique Prompts  | # Avg. Steps     | Data location | Model
-:---------:                 | :---------:       | :-----------:     | :--------------: | :-----------: | :-----------:
-**Total**                   | **7,735**         | **7,735**         | **15.4**         | [GUI-Odyssey](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey)                | [OdysseyAgent](https://huggingface.co/collections/hflqf88888/gui-odyssey-6683bac37ad6fe37b1215c18)
-Train-Random \& Test-Random | 5,802 / 1,933     | 5,802 / 1,933     | 15.4 / 15.2      | [random_split.json](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey/tree/main/splits)   | [OdysseyAgent-Random](https://huggingface.co/hflqf88888/OdysseyAgent-random)
-Train-Task \& Test-Task     | 6,719 / 1,016     | 6,719 / 1,016     | 15.0 / 17.6      | [task_split.json](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey/tree/main/splits)     | [OdysseyAgent-Task](https://huggingface.co/hflqf88888/OdysseyAgent-task)
-Train-Device \& Test-Device | 6,473 / 1,262     | 6,473 / 1,262     | 15.4 / 15.0      | [device_split.json](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey/tree/main/splits)   | [OdysseyAgent-Device](https://huggingface.co/hflqf88888/OdysseyAgent-device)
-Train-App \& Test-App       | 6,596 / 1,139     | 6,596 / 1,139     | 15.4 / 15.3      | [app_split.json](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey/tree/main/splits)      | [OdysseyAgent-App](https://huggingface.co/hflqf88888/OdysseyAgent-app)
-
-</center>
 
 ## 💫 Dataset Access
 
-The whole GUI Odyssey is hosted on [Huggingface](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey). 
+The latest version of GUIOdyssey is hosted on [Huggingface](https://huggingface.co/datasets/hflqf88888/GUIOdyssey). 
 
 Clone the entire dataset from Huggingface:
-```shell
-git clone https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey
-```
-And then move the cloned dataset into `./data` directory. After that, the structure of `./data` should look like this:
-
-
-```
-GUI-Odyssey
-├── data
-│   ├── annotations
-│   │   └── *.json
-│   ├── screenshots
-│   │   └── data_*
-│   │        └── *.png
-│   ├── splits
-│   │   ├── app_split.json
-│   │   ├── device_split.json
-│   │   ├── random_split.json
-│   │   └── task_split.json
-│   ├── format_converter.py
-│   └── preprocessing.py
-└── ...
-```
-
-Then organize the screenshots folder:
 
 ```shell
-cd data
-python preprocessing.py
+git clone https://huggingface.co/datasets/hflqf88888/GUIOdyssey
 ```
+Make sure your screenshots are organized in the following structure:
 
-Finally, the structure of `./data` should look like this:
 
 ```
 GUI-Odyssey
@@ -89,8 +50,7 @@ GUI-Odyssey
 │   │   ├── device_split.json
 │   │   ├── random_split.json
 │   │   └── task_split.json
-│   ├── format_converter.py
-│   └── preprocessing.py
+│   └── format_converter.py
 └── ...
 ```
 
@@ -103,20 +63,9 @@ Please refer to [this](introduction.md).
 
 Please refer to [this](Quickstart.md) to quick start.
 
-## 📖 Release Process
-
-- [x] Dataset
-  - [x] Screenshots of GUI Odyssey
-  - [x] annotations of GUI Odyssey
-  - [x] split files of GUI Odyssey
-- [x]  Code
-  - [x] data preprocessing code
-  - [x] inference code
-- [x]  Models
-
 
 ## 🖊️ Citation 
-If you feel GUI Odyssey useful in your project or research, please kindly use the following BibTeX entry to cite our paper. Thanks!
+If you feel GUIOdyssey useful in your project or research, please kindly use the following BibTeX entry to cite our paper. Thanks!
 ```bib
 @article{lu2024gui,
   title={GUI Odyssey: A Comprehensive Dataset for Cross-App GUI Navigation on Mobile Devices},
@@ -125,7 +74,3 @@ If you feel GUI Odyssey useful in your project or research, please kindly use th
   year={2024}
 }
 ```
-
-<!-- ## 📢 Disclaimer
-
-We develop this repository for RESEARCH purposes, so it can only be used for personal/research/non-commercial purposes. -->

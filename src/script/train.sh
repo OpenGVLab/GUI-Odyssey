@@ -1,6 +1,6 @@
 #!/bin/bash
 MODEL="/path/to/model" # "../OdysseyAgent"
-DATA_ROOT=/path/to/chat_format_annotation #  ../data/train_anno/app_split.json   ../data/train_anno/task_split.json
+DATA_ROOT=/path/to/chat_format_annotation #  ../data/train_anno/low_random_split.json   ../data/train_anno/high_random_split.json
 
 exp_name=OdysseyAgent
 mkdir -p output/"$exp_name"

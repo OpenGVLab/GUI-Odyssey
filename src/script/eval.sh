@@ -1,6 +1,6 @@
 #!/bin/bash
 checkpoint=/path/to/checkpoint
-ds=app_split # one of "app_split", "device_split", "random_split", "task_split"
+ds=high_random_split # one of "low_app_split", "low_device_split", "low_random_split", "low_task_split" "high_app_split", "high_device_split", "high_random_split", "high_task_split"
 DIR=`pwd`
 
 exp_name=OdysseyAgent_$ds
@@ -24,4 +24,4 @@ DISTRIBUTED_ARGS="
 echo $ds
 echo $checkpoint
 torchrun $DISTRIBUTED_ARGS eval_mm/evaluate_GUIOdyssey.py \
-    --checkpoint $checkpoint --dataset $ds --batch-size 16 --his_len 4
+    --checkpoint $checkpoint --dataset $ds --batch-size 32 --his_len 4

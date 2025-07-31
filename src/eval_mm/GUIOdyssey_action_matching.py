@@ -32,11 +32,16 @@ def text_matching(gt, pred):
     return value >= TEXT_ANLS_THRESHOLD
 
 
-def click_matching(gt_info, pred_info):
+def click_matching(gt_info, pred_info, sam2_bbox=None):
     if type(pred_info) == str:
         pred_info = eval(pred_info)
     if type(gt_info) == str:
         gt_info = eval(gt_info)
+        
+    if sam2_bbox is not None:
+        x1, y1, x2, y2 = sam2_bbox
+        if x1 <= pred_info[0] <= x2 and y1 <= pred_info[1] <= y2:
+            return True
     
     pred = np.asarray(pred_info) / 1000
     gt = np.asarray(gt_info) / 1000
@@ -45,7 +50,7 @@ def click_matching(gt_info, pred_info):
     
 
 
-def action_matching(pred_action, pred_info, gt_action, gt_info):
+def action_matching(pred_action, pred_info, gt_action, gt_info, sam2_bbox=None):
     pred_action = pred_action.strip()
     if type(pred_info) == str:
         pred_info = pred_info.strip()
@@ -74,7 +79,7 @@ def action_matching(pred_action, pred_info, gt_action, gt_info):
             return {'is_correct': 'no', 'info': 'scroll_fail'}        
     
     elif gt_action == 'CLICK' or gt_action == 'LONG_PRESS':
-        click_flag = click_matching(gt_info, pred_info)
+        click_flag = click_matching(gt_info, pred_info, sam2_bbox)
         
         if click_flag:
             return {'is_correct': 'yes', 'info': 'click_correct'}

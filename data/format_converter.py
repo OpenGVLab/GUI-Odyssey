@@ -1,6 +1,7 @@
 import os, json
 import argparse
 import numpy as np
+import random
 
 ### 
 current_path = os.path.abspath(__file__)
@@ -50,7 +51,8 @@ def decode_action(action, info):
         raise ValueError(f'Unknown action {action}')
     return gt
 
-def build_train_chat(split_fp='./splits/random_split.json', his_len=4):
+
+def build_train_chat(split_fp='./splits/random_split.json', his_len=4, instr_level='high'):
     os.makedirs(train_anno_base, exist_ok=True)
     name = os.path.basename(split_fp).split('.')[0]
     train_split = json.load(open(split_fp))['train']
@@ -60,7 +62,67 @@ def build_train_chat(split_fp='./splits/random_split.json', his_len=4):
         this_res = []
         fp = os.path.join(anno_base, f)
         data = json.load(open(fp))
-        instruction = data['task_info']['instruction']
+        high_level_instruction = data['task_info']['instruction']
+        steps = data['steps']
+        
+        history_screenshot, history_action = [], []
+
+        for step in steps:
+            image = step['screenshot']
+            action = step['action']
+            info = step['info']
+            low_level_instruction = step['low_level_instruction']
+            if instr_level == 'high':
+                instruction = high_level_instruction
+            elif instr_level == 'low':
+                instruction = low_level_instruction
+                
+
+            gt = decode_action(action, info)
+            img_abs_path = os.path.join(pic_base, image)
+            value = f"Picture 1: <img>{img_abs_path}</img>\n{PROMPT}{instruction}"
+
+            his_str = ''
+            for hidx, act in enumerate(history_action[-his_len:]):
+                his_str += f'{hidx + 1}. {act}\n'
+
+            if len(history_action) > 0 and his_len > 0:
+                value += f'\nPrevious screenshots: <img>image-history: {img_abs_path}</img>'
+                value += f'\nPrevious Actions: {his_str}'
+            else:
+                value += f'\nPrevious screenshots: None'
+                value += f'\nPrevious Actions: None'
+
+            value = value + '\nProvide the command-style action directly.'
+            conversations = [{"from": "user", "value": value}, {"from": "assistant", "value": gt}]
+
+            this_res.append({
+                'id': f'GUIOdyssey_{name}_{idx}',
+                'image': img_abs_path,
+                'conversations': conversations,
+                'history': str(history_screenshot),
+            })
+            idx += 1
+
+            history_screenshot.append(img_abs_path)
+            history_action.append(gt)
+
+        res.extend(this_res)
+
+    json.dump(res, open(os.path.join(train_anno_base, f'{instr_level}_' + os.path.basename(split_fp)), 'w'), indent=4, ensure_ascii=False)
+
+
+def build_train_semantic_chat(split_fp='./splits/random_split.json', his_len=4, instr_level='high'):
+    os.makedirs(train_anno_base, exist_ok=True)
+    name = os.path.basename(split_fp).split('.')[0]
+    train_split = json.load(open(split_fp))['train']
+    res = []
+    idx = 0
+    for f in train_split:
+        this_res = []
+        fp = os.path.join(anno_base, f)
+        data = json.load(open(fp))
+        high_level_instruction = data['task_info']['instruction']
         steps = data['steps']
         
         history_screenshot, history_action = [], []
@@ -69,9 +131,28 @@ def build_train_chat(split_fp='./splits/random_split.json', his_len=4):
             image = step['screenshot']
             action = step['action']
             info = step['info']
+            description = step['description']
+            intention = step['intention']
+            context = step['context']
+            low_level_instruction = step['low_level_instruction']
+            if instr_level == 'high':
+                instruction = high_level_instruction
+            elif instr_level == 'low':
+                instruction = low_level_instruction
             
             gt = decode_action(action, info)
             img_abs_path = os.path.join(pic_base, image)
+            
+            ## desc
+            value = f"Picture 1: <img>{img_abs_path}</img>\nProvide a 2-3 sentence summary of the screenshot content."
+            conversations = [{"from": "user", "value": value}, {"from": "assistant", "value": description}]
+            this_res.append({
+                'id': f'GUIOdyssey_{name}_{idx}_desc',
+                'image': img_abs_path,
+                'conversations': conversations,
+                'history': str(history_screenshot),
+            })
+            
             value = f"Picture 1: <img>{img_abs_path}</img>\n{PROMPT}{instruction}"
             
             his_str = ''
@@ -81,26 +162,47 @@ def build_train_chat(split_fp='./splits/random_split.json', his_len=4):
             if len(history_action) > 0 and his_len > 0:
                 value += f'\nPrevious screenshots: <img>image-history: {img_abs_path}</img>'
                 value += f'\nPrevious Actions: {his_str}'
-
-            conversations = [{"from": "user", "value": value}, {"from": "assistant", "value": gt}]
+            else:
+                value += f'\nPrevious screenshots: None'
+                value += f'\nPrevious Actions: None'
+            
+            value1 = value + '\nProvide the command-style action directly.'
+            value2 = value + '\nExplain the intention of the next action.'
+            value3 = value + '\nWhat steps have been taken so far for this task?'
+            conversations1 = [{"from": "user", "value": value1}, {"from": "assistant", "value": gt}]
+            conversations2 = [{"from": "user", "value": value2}, {"from": "assistant", "value": intention}]
+            conversations3 = [{"from": "user", "value": value3}, {"from": "assistant", "value": context}]
             
             this_res.append({
-                'id': f'GUIOdyssey_{name}_{idx}',
+                'id': f'GUIOdyssey_{name}_{idx}_action',
                 'image': img_abs_path,
-                'conversations': conversations,
+                'conversations': conversations1,
                 'history': str(history_screenshot),
             })
-            idx += 1
+            
+            this_res.append({
+                'id': f'GUIOdyssey_{name}_{idx}_intention',
+                'image': img_abs_path,
+                'conversations': conversations2,
+                'history': str(history_screenshot),
+            })
+            
+            this_res.append({
+                'id': f'GUIOdyssey_single_{name}_{idx}_context',
+                'image': img_abs_path,
+                'conversations': conversations3,
+                'history': str(history_screenshot),
+            })
         
             history_screenshot.append(img_abs_path)
             history_action.append(gt)
             
         res.extend(this_res)
-    
-    json.dump(res, open(os.path.join(train_anno_base, os.path.basename(split_fp)), 'w'), indent=4, ensure_ascii=False)
+    random.shuffle(res)
+    json.dump(res, open(os.path.join(train_anno_base, f'{instr_level}_sementic_' + os.path.basename(split_fp)), 'w'), indent=4, ensure_ascii=False)
 
-    
-def build_test(split_fp='./splits/random_split.json', his_len=4):
+
+def build_test(split_fp='./splits/random_split.json', his_len=4, instr_level='high'):
     os.makedirs(test_anno_base, exist_ok=True)
     name = os.path.basename(split_fp).split('.')[0]
     test_split = json.load(open(split_fp))['test']
@@ -110,21 +212,27 @@ def build_test(split_fp='./splits/random_split.json', his_len=4):
         this_res = []
         fp = os.path.join(anno_base, f)
         data = json.load(open(fp))
-        instruction = data['task_info']['instruction']
+        high_level_instruction = data['task_info']['instruction']
         steps = data['steps']
         category = data['task_info']['category']
         step_length = data['step_length']
-        
+
         history_screenshot = []
         history_action = []
-        
+
         for step in steps:
             image = step['screenshot']
+            low_level_instruction = step['low_level_instruction']
+            if instr_level == 'high':
+                instruction = high_level_instruction
+            elif instr_level == 'low':
+                instruction = low_level_instruction
             img_abs_path = os.path.join(pic_base, image)
             action = step['action']
             info = step['info']
+            sam2_bbox = step['sam2_bbox']
             gt = decode_action(action, info)
-            
+
             this_res.append({
                 'id': f'GUIOdyssey_{name}_{idx}',
                 'image': img_abs_path,
@@ -134,15 +242,16 @@ def build_test(split_fp='./splits/random_split.json', his_len=4):
                 'step_length': step_length,
                 'history_action': str(history_action),
                 'history_screenshot': str(history_screenshot),
+                'sam2_bbox': sam2_bbox,
             })
             idx += 1
-        
+
             history_screenshot.append(img_abs_path)
             history_action.append(gt)
-            
+
         res.extend(this_res)
-    
-    json.dump(res, open(os.path.join(test_anno_base, os.path.basename(split_fp)), 'w'), indent=4, ensure_ascii=False)
+
+    json.dump(res, open(os.path.join(test_anno_base, f'{instr_level}_' + os.path.basename(split_fp)), 'w'), indent=4, ensure_ascii=False)
 
 
 def make_his_idx(train_base=train_anno_base, test_base=test_anno_base):
@@ -175,16 +284,21 @@ def make_his_idx(train_base=train_anno_base, test_base=test_anno_base):
     json.dump(his_dict, open(savep, 'w'), indent=4, ensure_ascii=False)
     
     
-def main(his_len):
+def main(args):
     for f in os.listdir(split_base):
         fp = os.path.join(split_base, f)
-        build_train_chat(fp, his_len)
-        build_test(fp, his_len)
+        if args.type == 'semantic':
+            build_train_semantic_chat(fp, args.his_len, args.level)
+        elif args.type == 'standard':
+            build_train_chat(fp, args.his_len, args.level)
+        build_test(fp, args.his_len, args.level)
         
     make_his_idx()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--his_len', type=int, default=4)
+    parser.add_argument('--level', type=str, choices=['high', 'low'], default='high')
+    parser.add_argument('--type', type=str, choices=['semantic', 'standard'], default='standard')
     args = parser.parse_args()
-    main(args.his_len)
+    main(args)
