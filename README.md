@@ -2,15 +2,15 @@
 
 **This repository is the official implementation of GUIOdyssey.**
 
-> [GUIOdyssey: A Comprehensive Dataset for Cross-App GUI Navigation on Mobile Devices](assets/GUIOdyssey.pdf)  
+> [GUIOdyssey: A Comprehensive Dataset for Cross-App GUI Navigation on Mobile Devices](https://arxiv.org/pdf/2406.08451)  
 > Quanfeng Lu, Wenqi Shao✉️, Zitao Liu, Lingxiao Du, Fanqing Meng, Boxuan Li, Botong Chen, Siyuan Huang, Kaipeng Zhang, Ping Luo✉️
 
 
 ## 💡 News
 - `2025/07/31`: 🔥🔥🔥 Latest version of [GUIOdyssey dataset](https://huggingface.co/datasets/hflqf88888/GUIOdyssey) released! Please check out [hflqf88888/GUIOdyssey](https://huggingface.co/datasets/hflqf88888/GUIOdyssey). We recommend using this new version of the dataset for training and evaluation!
-- `2025/06/26`: 🎉🎉🎉 [GUIOdyssey paper](assets/GUIOdyssey.pdf) is accepted to ICCV 2025!
+- `2025/06/26`: 🎉🎉🎉 [GUIOdyssey paper](https://arxiv.org/pdf/2406.08451) is accepted to ICCV 2025!
 - `2024/06/24`: The first version of [GUIOdyssey dataset](https://huggingface.co/datasets/OpenGVLab/GUI-Odyssey) is released.
-- `2024/06/13`: The [GUIOdyssey arXiv preprint (v1)](https://arxiv.org/pdf/2406.08451) has been released.
+- `2024/06/13`: The GUIOdyssey arXiv preprint (v1) has been released.
 
 
 
