@@ -67,10 +67,11 @@ Please refer to [this](Quickstart.md) to quick start.
 ## 🖊️ Citation 
 If you feel GUIOdyssey useful in your project or research, please kindly use the following BibTeX entry to cite our paper. Thanks!
 ```bib
-@article{lu2024gui,
-  title={GUI Odyssey: A Comprehensive Dataset for Cross-App GUI Navigation on Mobile Devices},
-  author={Lu, Quanfeng and Shao, Wenqi and Liu, Zitao and Meng, Fanqing and Li, Boxuan and Chen, Botong and Huang, Siyuan and Zhang, Kaipeng and Qiao, Yu and Luo, Ping},
-  journal={arXiv preprint arXiv:2406.08451},
-  year={2024}
+@inproceedings{lu2025guiodyssey,
+  title={GUIOdyssey: A comprehensive dataset for cross-app GUI navigation on mobile devices},
+  author={Lu, Quanfeng and Shao, Wenqi and Liu, Zitao and Du, Lingxiao and Meng, Fanqing and Li, Boxuan and Chen, Botong and Huang, Siyuan and Zhang, Kaipeng and Luo, Ping},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages={22404--22414},
+  year={2025}
 }
 ```
